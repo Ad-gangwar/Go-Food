@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 async function fetchData() {
     try {
-      await mongoose.connect('mongodb://127.0.0.1:27017/foodDB', { useNewUrlParser: true });
+      await mongoose.connect('mongodb://localhost:27017/foodDB', { useNewUrlParser: true });
       console.log("Connected");
   
       const fetched_data1 = mongoose.connection.db.collection("foodData");
