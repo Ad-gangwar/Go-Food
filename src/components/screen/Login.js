@@ -1,51 +1,53 @@
-import React, {useState} from 'react'
-import {Link, useNavigate} from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+require('dotenv').config();
+const url=process.env.BASE_URL;
 export default function Login() {
-  let navigate=useNavigate();
+    let navigate = useNavigate();
     const [info, setInfo] = useState({
-      email: '',
-      password: ''
-  });
+        email: '',
+        password: ''
+    });
 
-  function handleChange(e) {
-      setInfo((prevInfo) => ({
-          ...prevInfo,
-          [e.target.name]: e.target.value
-      }));
-  }
+    function handleChange(e) {
+        setInfo((prevInfo) => ({
+            ...prevInfo,
+            [e.target.name]: e.target.value
+        }));
+    }
 
-  async function handleSubmit(e) {
-      e.preventDefault();
-      const response = await fetch('http://localhost:5000/api/loginUser', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-              email: info.email,
-              password: info.password
-          })
-      });
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const response = await fetch(`${url}/api/loginUser`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: info.email,
+                password: info.password
+            })
+        });
 
-      if (response.status === 200) {
-          const json = await response.json();
+        if (response.status === 200) {
+            const json = await response.json();
 
-          if (!json.success) {
-              alert('Enter valid credentials');
-          }
-          else{
-            localStorage.setItem("authToken", json.authToken)
-            localStorage.setItem("userEmail", info.email)
-            navigate("/");
-          }
+            if (!json.success) {
+                alert('Enter valid credentials');
+            }
+            else {
+                localStorage.setItem("authToken", json.authToken)
+                localStorage.setItem("userEmail", info.email)
+                navigate("/");
+            }
 
-          
-      } else {
-          alert('Server error');
-      }
-  }
-  return(
-    <div className="container mt-5">
+
+        } else {
+            alert('Server error');
+        }
+    }
+    return (
+        <div className="container mt-5">
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">
@@ -81,5 +83,5 @@ export default function Login() {
                 </Link>
             </form>
         </div>
-  )
+    )
 }

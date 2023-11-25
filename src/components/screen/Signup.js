@@ -19,7 +19,7 @@ export default function Signup() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const response = await fetch('http://localhost:5000/api/createUser', {
+        const response = await fetch('https://food-548g.onrender.com/api/createUser', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

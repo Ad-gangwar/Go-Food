@@ -1,6 +1,8 @@
 import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useCart, useDispatchCart } from '../ContextReducer';
+require('dotenv').config();
+const url=process.env.BASE_URL;
 let isPlaced=false;
 export default function Cart() {
   let data = useCart();
@@ -16,7 +18,7 @@ export default function Cart() {
  
   const handleCheckOut = async () => {
     let userEmail = localStorage.getItem("userEmail");
-    let response = await fetch("http://localhost:5000/api/orderData", {
+    let response = await fetch(`${url}/api/orderData`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

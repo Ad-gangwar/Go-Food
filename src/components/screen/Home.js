@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Footer from '../Footer';
 import Navbar from '../Navbar';
 import Card from '../Card';
+require('dotenv').config();
+const url=process.env.BASE_URL;
 
 export default function Home() {
   const [category, setCategory] = useState([]);
@@ -10,7 +12,7 @@ export default function Home() {
 
   const loadData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/displayData', {
+      const response = await fetch(`${url}/api/displayData`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',

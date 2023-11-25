@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Footer from '../Footer';
 import Navbar from '../Navbar';
-
+require('dotenv').config();
+const url=process.env.BASE_URL;
 export default function MyOrder() {
     const [orderData, setOrderData] = useState(null);
 
     const fetchMyOrder = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/myOrderData", {
+            const response = await fetch(`${url}/api/myOrderData`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,7 +39,7 @@ export default function MyOrder() {
     // console.log(orderData);
     if (orderData === null) {
         return <h2>Loading...</h2>; // Display a loading message while data is being fetched
-    } 
+    }
 
     return (
         <div>
@@ -78,12 +79,12 @@ export default function MyOrder() {
                                             )
                                         })
                                     )
-                                }) : <h3 className='m-5 text-danger'>No data is available! Please order something.</h3>
+                            }) : <h3 className='m-5 text-danger'>No data is available! Please order something.</h3>
                         )
                     })}
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     )
 };
