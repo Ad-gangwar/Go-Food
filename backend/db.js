@@ -1,7 +1,9 @@
 const mongoose=require('mongoose');
+require('dotenv').config();
+const url=process.env.URL;
 async function fetchData() {
     try {
-      await mongoose.connect('mongodb://0.0.0.0:27017/foodDB');
+      await mongoose.connect(url);
       console.log("Connected");
   
       const fetched_data1 = mongoose.connection.db.collection("foodData");
